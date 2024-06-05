@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { Provider as PaperProvider, Button, DefaultTheme } from 'react-native-paper';
@@ -15,22 +16,41 @@ const theme = {
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const router = useRouter();
+
+  const validateUsername = (username) => {
+    return username.length >= 5 && username.length <= 10;
+  };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{5,}$/;
-    return passwordRegex.test(password);
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{5,}$/;
+    return regex.test(password);
   };
 
   const handleRegister = () => {
-    if (username && (username.length < 5 || username.length > 10)) {
-      Alert.alert('Error', 'El nombre de usuario debe tener entre 5 y 10 caracteres.');
-      return;
+    let valid = true;
+
+    if (!validateUsername(username)) {
+      setUsernameError('El nombre de usuario debe tener entre 5 y 10 caracteres.');
+      valid = false;
+    } else {
+      setUsernameError('');
     }
+
     if (!validatePassword(password)) {
-      Alert.alert('Error', 'La contraseña debe tener al menos 5 caracteres, incluir una letra mayúscula, una letra minúscula y un símbolo.');
-      return;
+      setPasswordError('La contraseña debe tener al menos 5 caracteres, una letra mayúscula, una letra minúscula y un símbolo.');
+      valid = false;
+    } else {
+      setPasswordError('');
     }
-    Alert.alert('¡Te has registrado con éxito!');
+
+    if (valid) {
+      Alert.alert('¡Te has registrado con éxito!');
+      router.replace('/welcome/bienvenida'); 
+    }
   };
 
   return (
@@ -43,6 +63,7 @@ const Register = () => {
           value={username}
           onChangeText={setUsername}
         />
+        {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
@@ -50,6 +71,7 @@ const Register = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
+        {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
         <Button mode="contained" style={styles.button} onPress={handleRegister}>
           Registrarme
         </Button>
@@ -83,6 +105,10 @@ const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
     width: '80%',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 
