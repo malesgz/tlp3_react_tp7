@@ -48,7 +48,6 @@ const Login = () => {
     }
 
     if (valid) {
-      Alert.alert('¡Te has registrado con éxito!');
       router.replace('/ViewTaks');
     }
   };
