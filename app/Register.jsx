@@ -49,7 +49,7 @@ const Register = () => {
 
     if (valid) {
       Alert.alert('¡Te has registrado con éxito!');
-      router.replace('/welcome/bienvenida'); 
+      router.replace('/(tabs)/ViewTaks'); 
     }
   };
 
