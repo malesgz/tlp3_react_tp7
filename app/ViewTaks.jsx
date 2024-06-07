@@ -11,8 +11,6 @@ export default function ViewTaks() {
     navigation.push('/AddTaks'); 
   };
 
-  const 
-  
   return (
     <>
       <Stack.Screen options={{ headerShown: false}} />
