@@ -14,9 +14,9 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="AddTask"
+        name="AddTaks"
         options={{
-          title: 'Crear una tarea',
+          title: 'Crear tarea',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="list-status" color={color} size={26} />
           ),
@@ -36,7 +36,7 @@ export default function TabLayout() {
         options={{
           title: 'Configuración',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="list-status" color={color} size={26} />
+            <MaterialCommunityIcons name="cog" color={color} size={26} />
           ),
         }}
       />
