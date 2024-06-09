@@ -18,7 +18,7 @@ export default function TabLayout() {
         options={{
           title: 'Crear tarea',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="list-status" color={color} size={26} />
+            <MaterialCommunityIcons name="plus" color={color} size={26} />
           ),
         }}
       />
