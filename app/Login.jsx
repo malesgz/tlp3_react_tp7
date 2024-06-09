@@ -1,14 +1,15 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
-import { Provider as PaperProvider, Button, DefaultTheme } from 'react-native-paper';
+import { View } from 'react-native';
+import { Provider as PaperProvider, Button, TextInput, Text, DefaultTheme } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 const theme = {
   ...DefaultTheme,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#3498db',
+    primary: '#8e44ad',
     accent: '#f1c40f',
   },
 };
@@ -54,61 +55,31 @@ const Login = () => {
 
   return (
     <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Iniciar sesión</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16, backgroundColor: '#fff' }}>
+        <Text style={{ fontSize: 24, marginBottom: 20, fontWeight: 'bold' }}>Iniciar sesión</Text>
         <TextInput
-          style={styles.input}
-          placeholder="Nombre de usuario"
+          label="Nombre de usuario"
           value={username}
           onChangeText={setUsername}
+          style={{ width: '80%', marginBottom: 20 }}
+          error={!!usernameError}
         />
-        {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
+        {usernameError ? <Text style={{ color: 'red', alignSelf: 'flex-start', width: '80%', marginBottom: 10 }}>{usernameError}</Text> : null}
         <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
+          label="Contraseña"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
+          style={{ width: '80%', marginBottom: 20 }}
+          error={!!passwordError}
         />
-        {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-        <Button mode="contained" style={styles.button} onPress={handleLoginPress}>
+        {passwordError ? <Text style={{ color: 'red', alignSelf: 'flex-start', width: '80%', marginBottom: 10 }}>{passwordError}</Text> : null}
+        <Button mode="contained" style={{ marginVertical: 10, width: '80%' }} onPress={handleLoginPress}>
           Ingresar
         </Button>
       </View>
     </PaperProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
-  input: {
-    width: '80%',
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  button: {
-    marginVertical: 10,
-    width: '80%',
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 10,
-  },
-});
 
 export default Login;
