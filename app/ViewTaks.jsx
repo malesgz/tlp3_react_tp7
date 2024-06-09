@@ -1,8 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import { Button } from 'react-native-paper';
-import { Stack, useRouter } from 'expo-router';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { View, Text } from 'react-native';
+import { Button, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { useRouter } from 'expo-router';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#8e44ad',
+    accent: '#f1c40f',
+  },
+};
 
 export default function ViewTaks() {
   const navigation = useRouter();
@@ -12,51 +21,18 @@ export default function ViewTaks() {
   };
 
   return (
-    <>
-      <Stack.Screen options={{ headerShown: false}} />
-        <View style={styles.contentContainer}>
-          <Text style={styles.title}>Bienvenido</Text>
-          <Text style={styles.subtitle}>¡Ya puede comenzar a agregar sus tareas!</Text>
-          <Button mode="contained" onPress={handleGetStarted} style={styles.button}>
+    <PaperProvider theme={theme}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8f9fa' }}>
+        <View style={{ paddingHorizontal: 20, alignItems: 'center' }}>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#333', marginBottom: 10 }}>Bienvenido</Text>
+          <Text style={{ fontSize: 16, color: '#666', textAlign: 'center', marginBottom: 20 }}>
+            ¡Ya puede comenzar a agregar sus tareas!
+          </Text>
+          <Button mode="contained" onPress={handleGetStarted} style={{ backgroundColor: theme.colors.primary, paddingVertical: 10, paddingHorizontal: 20, margin: 3 }}>
             Continuar
           </Button>
         </View>
-    </>
+      </View>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-  },
-  logoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: verticalScale(20),
-  },
-  contentContainer: {
-    paddingHorizontal: moderateScale(20),
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: moderateScale(24),
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: verticalScale(10),
-  },
-  subtitle: {
-    fontSize: moderateScale(16),
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: verticalScale(20),
-  },
-  button: {
-    backgroundColor: '#007bff',
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: moderateScale(20),
-    margin: 3
-  },
-});
